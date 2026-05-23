@@ -42,10 +42,8 @@ I enjoy building real-world projects and continuously learning new technologies.
 ## 📸 Preview
 
 (Add screenshots of your portfolio here)
+<img width="1878" height="977" alt="image" src="https://github.com/user-attachments/assets/7759594c-8e18-4d09-8ddf-742c852e1725" />
 
-```md
-![Portfolio Screenshot](image.png)
-```
 
 ---
 
