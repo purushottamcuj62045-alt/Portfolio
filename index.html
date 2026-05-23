@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purushottam | Cybersecurity Analyst</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Read More Toggle Styles -->
+    <style>
+        /* ── Project Description Toggle ── */
+        .project-body .project-desc-wrap {
+            position: relative;
+            overflow: hidden;
+            max-height: 4.5em; /* ~3 lines */
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-body .project-desc-wrap.expanded {
+            max-height: 600px; /* large enough for any content */
+        }
+        /* Gradient fade overlay when collapsed */
+        .project-body .project-desc-wrap:not(.expanded)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2em;
+            background: linear-gradient(transparent, var(--card-bg, #0d0d0d));
+            pointer-events: none;
+        }
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            padding: 0;
+            background: none;
+            border: none;
+            color: var(--accent, #00e5ff);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.25s, gap 0.25s;
+        }
+        .read-more-btn:hover {
+            color: var(--accent-light, #66efff);
+            gap: 10px;
+        }
+        .read-more-btn i {
+            font-size: 0.7rem;
+            transition: transform 0.35s ease;
+        }
+        .read-more-btn.active i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="logo">Purushottam<span></span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-item active" data-section="home">Home</a></li>
+                <li><a href="#skills" class="nav-item" data-section="skills">Skills</a></li>
+                <li><a href="#education" class="nav-item" data-section="education">Education</a></li>
+                <li><a href="#projects" class="nav-item" data-section="projects">Projects</a></li>
+                <li><a href="#contact" class="nav-item" data-section="contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <section class="hero" id="home">
+        <div class="hero-bg-effects">
+            <div class="grid-overlay"></div>
+            <div class="radial-glow"></div>
+            <div class="scan-line"></div>
+        </div>
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        <div class="hero-wrap">
+            <!-- Left — Profile -->
+            <div class="hero-portrait" data-reveal="left">
+                <div class="portrait-outer-ring"></div>
+                <div class="portrait-glow"></div>
+                <div class="portrait-frame">
+                    <img src="https://api.dicebear.com/7.x/lorelei/svg?seed=cyber&backgroundColor=1a0010" alt="Purushottam">
+                </div>
+                <div class="portrait-badge">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+            </div>
+            <!-- Right — Content -->
+            <div class="hero-content" data-reveal="right">
+                <span class="hero-tag"><i class="fas fa-terminal"></i> Welcome to my world</span>
+                <h1 class="hero-heading">
+                    Hi, It's <span class="highlight">Purushottam</span>
+                </h1>
+                <h2 class="hero-sub">
+                    I'm a <span class="typed-wrap"><span class="typed" id="typed"></span><span class="typed-cursor">|</span></span>
+                </h2>
+                <p class="hero-desc">
+                    Dedicated cybersecurity professional with a passion for defending digital assets, 
+                    hunting threats, and building resilient security architectures. I turn vulnerabilities 
+                    into fortified systems.
+                </p>
+                <div class="hero-socials">
+                    <a href="https://www.linkedin.com/in/purushottam-k-08a414383/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/purushottamcuj62045-alt" target="_blank" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+                <a href="#contact" class="cta-btn">
+                    <span>Hire Me</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Scroll hint -->
+        <div class="scroll-hint">
+            <div class="mouse"><div class="dot"></div></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+    <!-- ═══════════════════ SKILLS ═══════════════════ -->
+    <section class="section section--alt" id="skills">
+        <div class="container">
+            <header class="sec-header" data-reveal="up">
+                <span class="sec-label">My Arsenal</span>
+                <h2 class="sec-title">Technical <span class="highlight">Skills</span></h2>
+            </header>
+            <div class="skills-grid">
+                <div class="skills-col" data-reveal="left">
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>Network Security</span><span>15%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-pct="15"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>Python / Scripting</span><span>22%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-pct="22"></div></div>
+                    </div>
+                </div>
+                <div class="skills-col" data-reveal="right">
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>C Programming</span><span>20%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-pct="20"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>Linux / Bash</span><span>15%</span></div>
+                        <div class="skill-track"><div class="skill-fill" data-pct="15"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════ EDUCATION ═══════════════════ -->
+    <section class="section" id="education">
+        <div class="container">
+            <header class="sec-header" data-reveal="up">
+                <span class="sec-label">Academic Path</span>
+                <h2 class="sec-title">Education & <span class="highlight">Certifications</span></h2>
+            </header>
+            <div class="timeline">
+                <div class="tl-item" data-reveal="left">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-date">2025 — 2029</span>
+                        <h3>B.Tech in Computer Science (Cybersecurity)</h3>
+                        <p class="tl-place"><i class="fas fa-building-columns"></i> central University of Jammu</p>
+                        <p>Core foundations in networking, operating systems, data structures, and software engineering.</p>
+                    </div>
+                </div>
+                <div class="tl-item" data-reveal="right">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-date">2026</span>
+                        <h3>Networking Basic</h3>
+                        <p class="tl-place"><i class="fas fa-certificate"></i> CISCO</p>
+                        <p>Network type and topologies, OSI and TCP/IP models, IP addressing and basic subnetting,
+                            Networking Devices, Data transmission and network communication basics.
+                        </p>
+                    </div>
+                </div>
+                <div class="tl-item" data-reveal="right">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-date">2026</span>
+                        <h3>Networking Devices and Basic Configuration</h3>
+                        <p class="tl-place"><i class="fas fa-certificate"></i> CISCO</p>
+                        <p>Core foundations in networking, Configuring switches and routers using Cisco IOS to build simple computer networks.
+                        Calculating and implementing IPv4 subnetting schemes for efficient network segmentation.
+                        Understanding core network services and protocols, including Ethernet, ARP, DNS, DHCP, and Transport Layer protocols.
+                        Analyzing hierarchical network design and converting between decimal, binary, and hexadecimal systems.</p>
+                    </div>
+                </div>
+                <div class="tl-item" data-reveal="left">
+                    <div class="tl-dot"></div>
+                    <div class="tl-card">
+                        <span class="tl-date">2026</span>
+                        <h3>Introduction to Modern AI</h3>
+                        <p class="tl-place"><i class="fas fa-certificate"></i> CISCO</p>
+                        <p>Course introduced key AI concepts such as machine learning fundamentals, real-world AI applications, data usage in AI systems, and the ethical impact of artificial intelligence in modern technology.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════ PROJECTS ═══════════════════ -->
+    <section class="section" id="projects">
+        <div class="container">
+            <header class="sec-header" data-reveal="up">
+                <span class="sec-label">My Work</span>
+                <h2 class="sec-title">Featured <span class="highlight">Projects</span></h2>
+            </header>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card" data-reveal="up" data-delay="0">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">WEB DEVELOPMENT</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-network-wired"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Pluton: (AI CODE REVIEWER)</h3>
+                        <div class="project-desc-wrap">
+                            <p>AI-powered Code Reviewer tool that automatically detects the programming language, analyzes code across key parameters such as performance, security, readability, and maintainability, and provides instant feedback with scoring.
+                                The tool supports file uploads and offers a configurable light/dark theme for an improved user experience.</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Type Script</span><span>HTML</span><span>CSS</span><span>React</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Pluton" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                            <a href="https://gemini-codelens.shristinayak18.workers.dev/" class="project-demo-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                                <span>Live Demo</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- Project 2 -->
+                <article class="project-card" data-reveal="up" data-delay="150">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">SERVER</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-eye"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Chatting Server</h3>
+                        <div class="project-desc-wrap">
+                            <p>A real-time chat system using Python that allows multiple clients to communicate simultaneously through a server.
+                                The application uses socket programming and multithreading to manage multiple connections efficiently.<br>
+                                Key Features:<br>
+                                • Multi-client support using threads<br>
+                                • Real-time message broadcasting<br>
+                                • Nickname authentication system<br>
+                                • Graceful client disconnect handling<br>
+                                • Clean client-server architecture</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Python</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Python-Polymer/tree/main/Chatting-Server" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </article>
+                <!-- Project 3 -->
+                <article class="project-card" data-reveal="up" data-delay="300">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">RED TEAM</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-virus"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Brute-force Password Cracking Simulator </h3>
+                        <div class="project-desc-wrap">
+                            <p>A Python-based brute-force password cracking simulator or Password strength analyser to evaluate the computational cost of exhaustive key-space searches and demonstrate brute-force attack mechanics.<br>
+                            Main features:<br>
+                            • User-specified password target<br>
+                            • Character-space construction (digits + ascii_lowercase + ascii_uppercase + special characters)<br>
+                            • Incremental key-space iteration and comparison<br>
+                            • Real-time performance feedback including attempt count and execution time<br>
+                            Technical notes:<br> 
+                            • Utilizes Python's string, random, and time libraries<br>
+                            • Simulates worst-case brute-force search patterns<br>
+                            • Highlights exponential growth in key-space size with increased password length and character diversity<br>
+                            • Demonstrates security implications of weak password entropy across common authentication schemes</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Python</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Python-Polymer/blob/main/Bruteforce-Password_cracker" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- Project 4 -->
+                <article class="project-card" data-reveal="up" data-delay="0">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">SOCKET</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-key"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>Identify Open TCP Ports</h3>
+                        <div class="project-desc-wrap">
+                            <p>scans target systems to identify open TCP ports and retrieves service banners for basic network reconnaissance. 
+                                Implemented socket programming,timeout handling to find scanning speed and efficiency. 
+                                This project demonstrates practical understanding of networking fundamentals, cybersecurity concepts, and ethical scanning practices.</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Python</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Python-Polymer/tree/main/socket" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- Project 5 -->
+                <article class="project-card" data-reveal="up" data-delay="0">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">BLUE TEAM</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-key"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>ANJANEYA-Mini-Firewall</h3>
+                        <div class="project-desc-wrap">
+                            <p>Developed a Python-based intelligent firewall with real-time packet inspection, automated 
+                                threat detection, and attack prevention capabilities using Scapy, Socket Programming, and 
+                                Tkinter.(Semmester Group Project)</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Python</span> <span>Socket Programming</span> <span>Scapy</span> <span>Tkinter</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Anjaneya-Mini-Firewall-" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card" data-reveal="up" data-delay="0">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <span class="project-category">SERVER</span>
+                        </div>
+                        <div class="project-icon-bg"><i class="fas fa-network-wired"></i></div>
+                    </div>
+                    <div class="project-body">
+                        <h3>FTP:SERVER</h3>
+                        <div class="project-desc-wrap">
+                            <p>Basic FTP server implementation using Python socket programming.</p>
+                        </div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this)">
+                            <span>Read More</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="project-tech">
+                            <span>Python</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/purushottamcuj62045-alt/Python-Polymer/tree/main/Ftp-server" target="_blank" rel="noopener noreferrer" class="project-repo-btn">
+                                <i class="fab fa-github"></i>
+                                <span>View on GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════ CONTACT ═══════════════════ -->
+    <section class="section" id="contact">
+        <div class="container">
+            <header class="sec-header" data-reveal="up">
+                <span class="sec-label">Get In Touch</span>
+                <h2 class="sec-title">Contact <span class="highlight">Me</span></h2>
+            </header>
+            <div class="contact-grid">
+                <!-- Info column -->
+                <div class="contact-info" data-reveal="left">
+                    <div class="ci-item">
+                        <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h4>Email</h4><p>purushottamcuj62045@gmail.com</p></div>
+                    </div>
+                    <div class="ci-item">
+                        <div class="ci-icon"><i class="fas fa-phone"></i></div>
+                        <div><h4>Phone</h4><p>+91 7549308113</p></div>
+                    </div>
+                    <div class="ci-item">
+                        <div class="ci-icon"><i class="fas fa-location-dot"></i></div>
+                        <div><h4>Location</h4><p>Jammu, India</p></div>
+                    </div>
+                    <div class="ci-globe">
+                        <i class="fas fa-earth-asia"></i>
+                        <span>Available for Remote Work</span>
+                    </div>
+                </div>
+                <!-- Form column -->
+                <form class="contact-form" id="contactForm" data-reveal="right">
+                    <div class="form-duo">
+                        <div class="field">
+                            <input type="text" id="fname" placeholder=" " required>
+                            <label for="fname">Full Name</label>
+                        </div>
+                        <div class="field">
+                            <input type="email" id="femail" placeholder=" " required>
+                            <label for="femail">Email Address</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <input type="text" id="fsubject" placeholder=" " required>
+                        <label for="fsubject">Subject</label>
+                    </div>
+                    <div class="field">
+                        <textarea id="fmsg" rows="5" placeholder=" " required></textarea>
+                        <label for="fmsg">Message</label>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="#home" class="logo">Purushottam<span></span></a>
+            <div class="footer-socials">
+                <a href="https://www.linkedin.com/in/purushottam-k-08a414383/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/purushottamcuj62045-alt" target="_blank"><i class="fab fa-github"></i></a>
+                
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <!-- Read More Toggle Script -->
+    <script>
+        function toggleReadMore(btn) {
+            const descWrap = btn.previousElementSibling;
+            const isExpanded = descWrap.classList.toggle('expanded');
+            btn.classList.toggle('active', isExpanded);
+            btn.querySelector('span').textContent = isExpanded ? 'Read Less' : 'Read More';
+        }
+    </script>
+</body>
+</html>
