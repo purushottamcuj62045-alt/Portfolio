@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   DESIGN TOKENS
+   ===========================================================================
+   Colours are defined as raw CSS variables first (so they can swap on theme
+   change) and then registered with Tailwind via @theme so you can write
+   utilities like `bg-surface`, `text-muted`, `border-line`.
+
+   TO RE-SKIN THE WHOLE SITE: change the six values in the ACCENTS block.
+   Everything else is neutral and will follow.
+   ========================================================================= */
+
+:root {
+  color-scheme: dark;
+
+  /* — Neutrals (dark theme is the default) — */
+  --bg: #08090b;              /* page background */
+  --bg-elevated: #0f1115;     /* cards, panels */
+  --bg-sunken: #050608;       /* wells, code blocks */
+  --fg: #ededea;              /* primary text */
+  --fg-muted: #8b9098;        /* secondary text */
+  --fg-faint: #747981;        /* labels, metadata — 4.55:1 on --bg (AA) */
+  --line: rgb(255 255 255 / 0.09);        /* hairline borders */
+  --line-strong: rgb(255 255 255 / 0.16);
+
+  /* — ACCENTS — the only chromatic colours in the system — */
+  --accent: #d8ff47;          /* citron. Primary accent, fills + highlights */
+  --accent-ink: #0a0c04;      /* text placed ON an accent fill */
+  --accent-text: #d8ff47;     /* accent used AS text (needs theme contrast) */
+  --signal: #ff5c38;          /* coral. Reserved for red-team / offensive */
+  --azure: #6e9bff;           /* blue.  Reserved for blue-team / defensive */
+
+  /* — Motion — */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Light theme. Neutrals invert; accents are tuned for contrast on paper. */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #faf9f6;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #f2f1ec;
+  --fg: #0e0f12;
+  --fg-muted: #5c616a;
+  --fg-faint: #6e737b;
+  --line: rgb(0 0 0 / 0.10);
+  --line-strong: rgb(0 0 0 / 0.20);
+
+  --accent: #cbf22e;          /* fill stays bright — it sits behind dark ink */
+  --accent-ink: #0a0c04;
+  --accent-text: #5d7a00;     /* citron is unreadable as text on white */
+  --signal: #d53712;
+  --azure: #2f5fd0;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elevated: var(--bg-elevated);
+  --color-sunken: var(--bg-sunken);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-faint: var(--fg-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-signal: var(--signal);
+  --color-azure: var(--azure);
+
+  /* Font families are injected by next/font in app/layout.tsx */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+}
+
+/* Let the light/dark variant respond to our data-theme attribute rather than
+   the OS preference, since the toggle writes data-theme onto <html>. */
+@custom-variant light (&:where([data-theme="light"] *));
+
+/* ===========================================================================
+   BASE
+   ========================================================================= */
+
+* {
+  border-color: var(--line);
+}
+
+html {
+  /* Native smooth scroll — the nav links are plain anchors, so this is all
+     the smooth-scrolling we need. No JS scroll hijacking. */
+  scroll-behavior: smooth;
+  /* Offset anchor targets so headings don't hide under the fixed nav. */
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Selection picks up the accent — a small, cheap signature detail. */
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Keyboard focus ring. Visible, on-brand, and never shown for mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Custom scrollbar — subtle, matches the theme rather than the OS. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-sunken); }
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 999px;
+  border: 3px solid var(--bg-sunken);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--fg-faint); }
+
+/* ===========================================================================
+   TYPOGRAPHY HELPERS
+   ========================================================================= */
+
+/* Oversized display type: tight tracking + optical sizing. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  font-variation-settings: "opsz" 48;
+}
+
+/* The small uppercase monospace labels used throughout (01 — ABOUT). */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+/* ===========================================================================
+   TEXTURE
+   =========================================================================
+   A very low-opacity noise layer over the whole page. This is what keeps
+   large flat dark areas from looking like dead pixels — it reads as "printed"
+   rather than "rendered". Pure CSS, no image request.                       */
+
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* A faint blueprint grid, used behind the hero only. */
+.blueprint {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  /* Fade the grid out toward the edges so it never reads as a hard box. */
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 20%, transparent 75%);
+}
+
+/* ===========================================================================
+   ANIMATION
+   ========================================================================= */
+
+/* Slow drift for the hero's ambient accent glow. */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(3%, -4%, 0) scale(1.08); }
+}
+.animate-drift { animation: drift 18s var(--ease-in-out) infinite; }
+
+/* Terminal caret. */
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+.animate-blink { animation: blink 1.1s step-end infinite; }
+
+/* Pulsing ring on the "in progress" timeline marker. */
+@keyframes ping-soft {
+  0%   { transform: scale(1);   opacity: 0.6 }
+  70%  { transform: scale(2.4); opacity: 0 }
+  100% { transform: scale(2.4); opacity: 0 }
+}
+.animate-ping-soft { animation: ping-soft 2.4s var(--ease-out) infinite; }
+
+/* ===========================================================================
+   REDUCED MOTION
+   =========================================================================
+   One global override. Anything that moves is reduced to a near-instant
+   state change, and the JS animation layer checks the same media query so
+   scroll-reveals resolve to plain visible content.                          */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
